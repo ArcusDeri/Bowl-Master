@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
 	public Vector3 LaunchVector;
+	public bool IsLaunched = false;
 
 	private Rigidbody MyRigidBody;
 	private AudioSource RollingSound;
@@ -24,6 +25,7 @@ public class Ball : MonoBehaviour {
 	{
 		MyRigidBody.useGravity = true;
 		MyRigidBody.velocity = velocity;
+		IsLaunched = true;
 		PlayRollingSound();
 	}
 

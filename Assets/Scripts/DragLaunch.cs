@@ -13,6 +13,13 @@ public class DragLaunch : MonoBehaviour {
 	void Start () {
 		MyBall = GetComponent<Ball>();
 	}
+	
+	public void MoveStart(float amount){
+		if(!MyBall.IsLaunched){
+			float positionX = Mathf.Clamp(amount + MyBall.transform.position.x,-50f,50f);
+			MyBall.transform.Translate(new Vector3(positionX,0,0));
+		}
+	}
 
 	public void DragStart(){
 		StartTime = Time.time;
