@@ -13,17 +13,21 @@ public class Ball : MonoBehaviour {
 	void Start () {
 		MyRigidBody = gameObject.GetComponent<Rigidbody> ();
 		RollingSound = gameObject.GetComponent<AudioSource> ();
-
-		Launch ();
+		MyRigidBody.useGravity = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
 
-	public void Launch ()
+	public void Launch (Vector3 velocity)
 	{
-		MyRigidBody.velocity = LaunchVector;
+		MyRigidBody.useGravity = true;
+		MyRigidBody.velocity = velocity;
+		PlayRollingSound();
+	}
+
+	private void PlayRollingSound(){
 		RollingSound.Play ();
 	}
 }
