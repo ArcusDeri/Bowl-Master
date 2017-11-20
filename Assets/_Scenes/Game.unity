@@ -185,7 +185,7 @@ Transform:
   m_LocalScale: {x: 2.611607, y: 1.905681, z: 1.6258274}
   m_Children: []
   m_Father: {fileID: 292805457}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &161781008
 GameObject:
@@ -449,11 +449,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1785742229}
-  - {fileID: 1063483759}
-  - {fileID: 1154359413}
   - {fileID: 93902774}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421127419
 GameObject:
@@ -1503,6 +1501,7 @@ GameObject:
   - component: {fileID: 1063483762}
   - component: {fileID: 1063483761}
   - component: {fileID: 1063483760}
+  - component: {fileID: 1063483763}
   m_Layer: 0
   m_Name: PinSetter
   m_TagString: Untagged
@@ -1519,9 +1518,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 64, z: 1864}
   m_LocalScale: {x: 120, y: 120, z: 240}
-  m_Children: []
-  m_Father: {fileID: 292805457}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 1154359413}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1063483760
 MonoBehaviour:
@@ -1535,6 +1535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StandingDisplay: {fileID: 839842768}
+  LastStandingCount: -1
 --- !u!65 &1063483761
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1554,6 +1555,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1063483758}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1063483763
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1063483758}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d74f0f6fd09725499c4d3f26ccf2c76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1154359409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,7 +1584,6 @@ GameObject:
   - component: {fileID: 1154359411}
   - component: {fileID: 1154359415}
   - component: {fileID: 1154359410}
-  - component: {fileID: 1154359414}
   m_Layer: 0
   m_Name: Swiper
   m_TagString: Untagged
@@ -1632,29 +1649,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1154359409}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 70, z: 1750}
-  m_LocalScale: {x: 105, y: 30, z: 10}
+  m_LocalPosition: {x: 0, y: 0.050000004, z: -0.47500002}
+  m_LocalScale: {x: 0.87500006, y: 0.25, z: 0.041666668}
   m_Children: []
-  m_Father: {fileID: 292805457}
-  m_RootOrder: 2
+  m_Father: {fileID: 1063483759}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1154359414
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1154359409}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5cf0023035d8f90429177fa1ddabc220, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!54 &1154359415
 Rigidbody:
   m_ObjectHideFlags: 0
