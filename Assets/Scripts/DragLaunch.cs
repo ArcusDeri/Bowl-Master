@@ -16,8 +16,10 @@ public class DragLaunch : MonoBehaviour {
 	
 	public void MoveStart(float amount){
 		if(!MyBall.IsLaunched){
-			float positionX = Mathf.Clamp(amount + MyBall.transform.position.x,-50f,50f);
-			MyBall.transform.Translate(new Vector3(positionX,0,0));
+			if(amount > 0 && MyBall.transform.position.x < 50f)
+				MyBall.transform.Translate(new Vector3(amount,0,0));
+			else if(amount < 0 && MyBall.transform.position.x > -50f)
+				MyBall.transform.Translate(new Vector3(amount,0,0));
 		}
 	}
 
