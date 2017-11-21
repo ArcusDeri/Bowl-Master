@@ -8,6 +8,7 @@ public class PinSetter : MonoBehaviour {
 	public Text StandingDisplay;
 	public int LastStandingCount = -1;
 	public float DistanceToRaise = 40f;
+	public GameObject PinSet;
 
 	private Ball MyBall;
 	private bool BallInBox = false;
@@ -80,6 +81,9 @@ public class PinSetter : MonoBehaviour {
 	}
 
 	public void RenewPins(){
-		Debug.Log("renewin");
+		Debug.Log("Renewing");
+		GameObject newPins = Instantiate(PinSet);
+		Debug.Log(newPins.transform.position);
+		newPins.transform.position += new Vector3(0,30,0);
 	}
 }
