@@ -10,6 +10,7 @@ public class ActionMasterTest {
 	private ActionMaster.Action EndTurn = ActionMaster.Action.EndTurn;
 	private ActionMaster.Action Tidy = ActionMaster.Action.Tidy;
 	private ActionMaster.Action Reset = ActionMaster.Action.Reset;
+	private ActionMaster.Action EndGame = ActionMaster.Action.EndGame;
 
 	[SetUp]
 	public void SetUp(){
@@ -35,6 +36,66 @@ public class ActionMasterTest {
 	public void T03_BowlSpareReturnsEndTurn(){
 		MyActionMaster.Bowl(3);
 		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(7));
+	}
+
+	[Test]
+	public void T04_SecondBowlInLastFrameCausingSpareReturnsReset(){
+		int iter = 1;
+		while (iter < 20)
+		{
+			MyActionMaster.Bowl(2);
+			iter += 1;
+		}
+		Assert.AreEqual(Reset,MyActionMaster.Bowl(8));
+	}
+
+	[Test]
+	public void T05_SecondBowlInLastFrameNotCausingSpareReturnsEndGame(){
+		int iter = 1;
+		while (iter < 20)
+		{
+			MyActionMaster.Bowl(2);
+			iter += 1;
+		}
+
+		Assert.AreEqual(EndGame,MyActionMaster.Bowl(7));
+	}
+
+	[Test]
+	public void T06_ThirdBowlInLastFrameReturnsEndGame(){
+		int iter = 1;
+		while (iter < 20)
+		{
+			MyActionMaster.Bowl(2);
+			iter += 1;
+		}
+		MyActionMaster.Bowl(8);
+		Assert.AreEqual(EndGame,MyActionMaster.Bowl(7));
+	}
+
+	[Test]
+	public void T07_LastThreeBowlsStrikeReturnEndGame(){
+		int iter = 1;
+		while (iter < 19)
+		{
+			MyActionMaster.Bowl(2);
+			iter += 1;
+		}
+		MyActionMaster.Bowl(10);
+		MyActionMaster.Bowl(10);
+		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
+	}
+
+	[Test]
+	public void T08_BowlStrikeThenNothingInLastFrameReturnsReset(){
+		int iter = 1;
+		while (iter < 19)
+		{
+			MyActionMaster.Bowl(2);
+			iter += 1;
+		}
+		MyActionMaster.Bowl(10);
+		Assert.AreEqual(Reset,MyActionMaster.Bowl(0));
 	}
 
 }
