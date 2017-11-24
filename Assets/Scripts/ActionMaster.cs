@@ -14,10 +14,10 @@ public class ActionMaster {
 		if(pins < 0 || pins > 10)
 			throw new UnityException("Incorrect number of pins to bowl.");
 		Bowls[BowlNumber - 1] = pins;
-
+		
 		if(BowlNumber == 19){
 			BowlNumber += 1;
-			if (Bowls[18] == 0){	
+			if (pins == 10){	
 				IsBowl21stAwarded = true;
 				return Action.Reset;
 			}else
@@ -25,11 +25,11 @@ public class ActionMaster {
 		}
 		if(BowlNumber == 20){
 				BowlNumber += 1;
-			if (Bowls[19] == 0){
+			if (Bowls[18] + Bowls[19] == 10 || pins == 10){
+				IsBowl21stAwarded = true;
 				return Action.Reset;
-			}else
-			if(IsBowl21stAwarded)
-				return Action.Reset;
+			}else if(IsBowl21stAwarded)
+				return Action.Tidy;
 			else
 				return Action.EndGame;
 		}
