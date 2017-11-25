@@ -39,7 +39,7 @@ public class Ball : MonoBehaviour {
 		RollingSound.Stop();
 		IsLaunched = false;
 	}
-
+	
 	private void PlayRollingSound(){
 		RollingSound.Play ();
 	}

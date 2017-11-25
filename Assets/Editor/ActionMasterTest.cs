@@ -133,4 +133,10 @@ public class ActionMasterTest {
 		Assert.AreEqual(Reset,MyActionMaster.Bowl(10));
 		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
 	}
+
+	[Test]
+	public void T13_ScoreFiveThenZeroReturnsEndTurn(){
+		MyActionMaster.Bowl(5);
+		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(0));
+	}
 }
