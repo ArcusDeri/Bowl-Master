@@ -114,4 +114,23 @@ public class ActionMasterTest {
 		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
 	}
 
+	[Test]
+	public void T11_ScoreZeroThenTenNextFrameShouldReturnEndTurn(){
+		MyActionMaster.Bowl(0);
+		MyActionMaster.Bowl(10);
+		MyActionMaster.Bowl(4);
+		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(2));
+	}
+
+	[Test]
+	public void T12_ScoreOnesThenThreeStrikesInLastFrameReturnsResetResetEndgame(){
+		int iter = 1;
+		while(iter < 19){
+			MyActionMaster.Bowl(1);
+			iter += 1;
+		}
+		Assert.AreEqual(Reset,MyActionMaster.Bowl(10));
+		Assert.AreEqual(Reset,MyActionMaster.Bowl(10));
+		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
+	}
 }

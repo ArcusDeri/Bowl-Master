@@ -36,19 +36,26 @@ public class ActionMaster {
 		if(BowlNumber == 21){
 			return Action.EndGame;
 		}
+		return HandleFirstNineFrames(pins);
 
-		if(pins == 10){
-			BowlNumber += 2;
-			return Action.EndTurn;
-		}
+		throw new UnityException("Not sure what action to return.");
+	}
+
+	private Action HandleFirstNineFrames(int pins){
 		if(BowlNumber % 2 != 0){//Mid frame or last frame.
-			BowlNumber += 1;
-			return Action.Tidy;
+			if(pins == 10){
+				BowlNumber += 2;
+				return Action.EndTurn;
+			}
+			else{
+				BowlNumber += 1;
+				return Action.Tidy;
+			}
 		}else if(BowlNumber % 2 == 0){//End of frame.
 			BowlNumber += 1;
 			return Action.EndTurn;
 		}
-
+		
 		throw new UnityException("Not sure what action to return.");
 	}
 }
