@@ -36,7 +36,7 @@ public class DragLaunch : MonoBehaviour {
 
 		float speedX = dragVector.x/ dragDuration;
 		float speedZ = dragVector.y/ dragDuration;
-
-		MyBall.Launch(new Vector3(speedX,0,speedZ));
+		if(!MyBall.IsLaunched)
+			MyBall.Launch(new Vector3(speedX,0,speedZ));
 	}
 }

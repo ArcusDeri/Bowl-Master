@@ -25,7 +25,8 @@ public class Pin : MonoBehaviour {
 	public void RaiseIfStanding(float distance){
 		if(IsStanding()){
 			MyRigidbody.useGravity = false;
-			transform.Translate(new Vector3(0,distance,0),Space.World);	
+			transform.Translate(new Vector3(0,distance,0),Space.World);
+			transform.rotation = Quaternion.Euler(270f,0,0);
 		}
 	}
 

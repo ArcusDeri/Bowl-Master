@@ -33,9 +33,9 @@ public class Ball : MonoBehaviour {
 	public void Reset(){
 		MyRigidBody.useGravity = false;
 		gameObject.transform.position = StartPosition;
+		gameObject.transform.rotation = Quaternion.identity;
 		MyRigidBody.velocity = Vector3.zero;
 		MyRigidBody.angularVelocity = Vector3.zero;
-		gameObject.transform.rotation = Quaternion.identity;
 		RollingSound.Stop();
 		IsLaunched = false;
 	}
