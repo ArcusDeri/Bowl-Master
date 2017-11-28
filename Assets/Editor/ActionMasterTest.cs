@@ -139,4 +139,10 @@ public class ActionMasterTest {
 		MyActionMaster.Bowl(5);
 		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(0));
 	}
+
+	[Test]
+	public void T14_ScoreZeroThenFiveReturnsEndTurn(){
+		MyActionMaster.Bowl(0);
+		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(5));
+	}
 }

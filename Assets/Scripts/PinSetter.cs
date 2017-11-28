@@ -6,14 +6,14 @@ using UnityEngine;
 public class PinSetter : MonoBehaviour {
 
 	public Text StandingDisplay;
-	public int LastStandingCount = -1;
 	public float DistanceToRaise = 40f;
 	public GameObject PinSet;
+	public bool BallLeftTheBox = false;
 
 	private Ball MyBall;
-	private bool BallInBox = false;
 	private float LastChangeTime;
 	private int LastSettledCount = 10;
+	private int LastStandingCount = -1;
 	private ActionMaster MyActionMaster;
 	private Animator MyAnimator;
 
@@ -27,8 +27,9 @@ public class PinSetter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		StandingDisplay.text = CountStanding().ToString();
-		if(BallInBox){
+		if(BallLeftTheBox){
 			UpdateStandingCountAndSettle();
+			StandingDisplay.color = Color.red;
 		}
 	}
 
@@ -60,14 +61,6 @@ public class PinSetter : MonoBehaviour {
 			counter += pin.IsStanding() ? 1 : 0;
 		}
 		return counter;
-	}
-
-	void OnTriggerEnter(Collider collider){
-		var objectHit = collider.gameObject;
-		if(objectHit.GetComponent<Ball>()){
-			BallInBox = true;
-			StandingDisplay.color = Color.red;
-		}
 	}
 
 	public void RaisePins(){
@@ -107,6 +100,6 @@ public class PinSetter : MonoBehaviour {
 	private void ResetBall(){
 		MyBall.Reset();
 		LastStandingCount = -1; //indicates pins are settled and ball not back in box
-		BallInBox = false;
+		BallLeftTheBox = false;
 	}
 }
