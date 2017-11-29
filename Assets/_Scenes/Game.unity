@@ -292,7 +292,7 @@ Transform:
   - {fileID: 1189147047}
   - {fileID: 1785742229}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &574650177 stripped
 MonoBehaviour:
@@ -343,7 +343,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4912155874931162, guid: 13d277bbafd8ae5438077cfdf28a6d63, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13d277bbafd8ae5438077cfdf28a6d63, type: 2}
@@ -666,7 +666,7 @@ Transform:
   m_Children:
   - {fileID: 1154359413}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1063483760
 MonoBehaviour:
@@ -679,10 +679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330cfab6f74f6464bb2515a1bde40128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandingDisplay: {fileID: 839842768}
   DistanceToRaise: 40
   PinSet: {fileID: 1404023512443182, guid: 13d277bbafd8ae5438077cfdf28a6d63, type: 2}
-  BallLeftTheBox: 0
 --- !u!65 &1063483761
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -730,6 +728,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8572833440bbc4ea4e8b6c4750937d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1093887599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1093887601}
+  - component: {fileID: 1093887600}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1093887600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093887599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c6fef9224c9844dad31daffeae330a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1093887601
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093887599}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 112.80133, y: 98.29342, z: 1813.4136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154359409
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,9 +904,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1189147046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a08d8ea6fe719438e8da4c16293eb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b2509ad38afe9048876a19f19a08691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StandingDisplay: {fileID: 839842768}
 --- !u!65 &1189147049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1239,7 +1278,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4198259730753556, guid: 55e8be40f75795e4792530ad9baf7357, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55e8be40f75795e4792530ad9baf7357, type: 2}
@@ -1484,7 +1523,7 @@ RectTransform:
   - {fileID: 1572843275}
   - {fileID: 1436400880}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

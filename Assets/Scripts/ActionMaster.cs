@@ -20,8 +20,7 @@ public class ActionMaster {
 		return result;
 	}
 
-	//TODO: make public
-	public Action Bowl(int pins){
+	private Action Bowl(int pins){
 		if(pins < 0 || pins > 10)
 			throw new UnityException("Incorrect number of pins to bowl.");
 		Bowls[BowlNumber - 1] = pins;
