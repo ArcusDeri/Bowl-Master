@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using System.Linq;
 
 [TestFixture]
 public class ActionMasterTest {
 
-	private ActionMaster MyActionMaster;
+	private List<int> PinFalls;
 	private ActionMaster.Action EndTurn = ActionMaster.Action.EndTurn;
 	private ActionMaster.Action Tidy = ActionMaster.Action.Tidy;
 	private ActionMaster.Action Reset = ActionMaster.Action.Reset;
@@ -14,135 +15,96 @@ public class ActionMasterTest {
 
 	[SetUp]
 	public void SetUp(){
-		MyActionMaster = new ActionMaster();
+		PinFalls = new List<int>();
 	}
 
 	[Test]
-	public void T00PassingTest(){
+	public void T00_PassingTest(){
 		Assert.AreEqual(1,1);
 	}
 
 	[Test]
 	public void T01_OneStrikeReturnsEndTurn(){
-		Assert.AreEqual(EndTurn, MyActionMaster.Bowl(10));
+		PinFalls.Add(10);
+		Assert.AreEqual(EndTurn, ActionMaster.NextAction(PinFalls));
 	}
 
 	[Test]
 	public void T02_BowlEightReturnsTidy(){
-		Assert.AreEqual(Tidy,MyActionMaster.Bowl(8));
+		PinFalls.Add(8);
+		Assert.AreEqual(Tidy, ActionMaster.NextAction(PinFalls));
 	}
 
 	[Test]
 	public void T03_BowlSpareReturnsEndTurn(){
-		MyActionMaster.Bowl(3);
-		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(7));
+		int[] rolls = {8, 2};
+		Assert.AreEqual(EndTurn, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T04_SecondBowlInLastFrameCausingSpareReturnsReset(){
-		int iter = 1;
-		while (iter < 20){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-		Assert.AreEqual(Reset,MyActionMaster.Bowl(8));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 10};
+		Assert.AreEqual(Reset, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T05_SecondBowlInLastFrameNotCausingSpareReturnsEndGame(){
-		int iter = 1;
-		while (iter < 20){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-
-		Assert.AreEqual(EndGame,MyActionMaster.Bowl(7));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,9};
+		Assert.AreEqual(Reset, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T06_ThirdBowlInLastFrameReturnsEndGame(){
-		int iter = 1;
-		while (iter < 20){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-		MyActionMaster.Bowl(8);
-		Assert.AreEqual(EndGame,MyActionMaster.Bowl(7));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,9, 1};
+		Assert.AreEqual(EndGame, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T07_LastThreeBowlsStrikeReturnEndGame(){
-		int iter = 1;
-		while (iter < 19){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-		MyActionMaster.Bowl(10);
-		MyActionMaster.Bowl(10);
-		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 10,10, 10};
+		Assert.AreEqual(EndGame, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T08_BowlStrikeThenNothingInLastFrameReturnsReset(){
-		int iter = 1;
-		while (iter < 19){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-		MyActionMaster.Bowl(10);
-		Assert.AreEqual(Reset,MyActionMaster.Bowl(0));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 10,0};
+		Assert.AreEqual(Reset, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
-	public void T09_BowlStrikeThenTwoInLastFrameReturnsTidy(){
-		int iter = 1;
-		while (iter < 19){
-			MyActionMaster.Bowl(2);
-			iter += 1;
-		}
-		MyActionMaster.Bowl(10);
-		Assert.AreEqual(Tidy,MyActionMaster.Bowl(2));
+	public void T09_BowlTwoInLastFrameReturnsTidy(){
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 2};
+		Assert.AreEqual(Tidy, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T10_PerfectGameReturnsEndGame(){
-		int iter = 1;
-		while(iter < 12){
-			MyActionMaster.Bowl(10);
-			iter += 1;
-		}
-		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
+		int[] rolls = {10,10,10,10,10,10,10,10,10,10,10,10};
+		Assert.AreEqual(EndGame, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T11_ScoreZeroThenTenNextFrameShouldReturnEndTurn(){
-		MyActionMaster.Bowl(0);
-		MyActionMaster.Bowl(10);
-		MyActionMaster.Bowl(4);
-		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(2));
+		int[] rolls = {0,10};
+		Assert.AreEqual(EndTurn, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T12_ScoreOnesThenThreeStrikesInLastFrameReturnsResetResetEndgame(){
-		int iter = 1;
-		while(iter < 19){
-			MyActionMaster.Bowl(1);
-			iter += 1;
-		}
-		Assert.AreEqual(Reset,MyActionMaster.Bowl(10));
-		Assert.AreEqual(Reset,MyActionMaster.Bowl(10));
-		Assert.AreEqual(EndGame,MyActionMaster.Bowl(10));
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 10,10,10};
+		Assert.AreEqual(EndGame, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T13_ScoreFiveThenZeroReturnsEndTurn(){
-		MyActionMaster.Bowl(5);
-		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(0));
+		int[] rolls = {5,0};
+		Assert.AreEqual(EndTurn, ActionMaster.NextAction(rolls.ToList()));
 	}
 
 	[Test]
 	public void T14_ScoreZeroThenFiveReturnsEndTurn(){
-		MyActionMaster.Bowl(0);
-		Assert.AreEqual(EndTurn,MyActionMaster.Bowl(5));
+		int[] rolls = {0,5};
+		Assert.AreEqual(EndTurn, ActionMaster.NextAction(rolls.ToList()));
 	}
+
 }

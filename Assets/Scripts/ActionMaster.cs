@@ -10,6 +10,17 @@ public class ActionMaster {
 	private bool IsBowl21stAwarded = false;
 	private int[] Bowls = new int [21];
 
+	public static Action NextAction(List<int> pinFalls){
+		ActionMaster tmpAM = new ActionMaster();
+		Action result = new Action();
+		foreach (var fall in pinFalls)
+		{
+			result =tmpAM.Bowl(fall);
+		}
+		return result;
+	}
+
+	//TODO: make public
 	public Action Bowl(int pins){
 		if(pins < 0 || pins > 10)
 			throw new UnityException("Incorrect number of pins to bowl.");
