@@ -21,7 +21,39 @@ public class ScoreMaster {
 	//returns list of individual frame scores, not cumulative
 	public static List<int> ScoreFrames(List<int> rolls){
 		List<int> frameList = new List<int>();
+		int firstBowl = -1;
+		int secondBowl = -1;
+		int extraScore = 0;
+		bool isWaitingForNext = false;
+		
+		foreach (int score in rolls)
+		{
+			if(isWaitingForNext){
+				if(score < 10){
+					extraScore += score;
+				}
+			}	
+			if(firstBowl >= 0){
+				if(secondBowl >= 0){
+					frameList.Add(firstBowl + secondBowl);
+					firstBowl = score;
+					secondBowl = -1;
+				}else{
+					secondBowl = score;
+					frameList.Add(firstBowl + secondBowl);
+					firstBowl = -1;
+					secondBowl = -1;
+				}
+			}else {
+				if(score == 10){
+					extraScore += 10;
+				}else{
+					firstBowl = score;
+				}
+			}
+		}
 
+		
 		return frameList;
 	}
 }
