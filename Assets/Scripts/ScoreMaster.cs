@@ -21,36 +21,54 @@ public class ScoreMaster {
 	//returns list of individual frame scores, not cumulative
 	public static List<int> ScoreFrames(List<int> rolls){
 		List<int> frameList = new List<int>();
-		int firstBowl = -1;
-		int secondBowl = -1;
-		int extraScore = 0;
-		bool isWaitingForNext = false;
+		int scoreInFrame = 0;
+		int extraStrikeScore = 0;
+		bool isSpare = false;
+		bool isStrike = false;
 		
 		foreach (int score in rolls)
 		{
-			if(isWaitingForNext){
-				if(score < 10){
-					extraScore += score;
+			
+			if(isSpare){
+				frameList.Add(scoreInFrame + score);
+				scoreInFrame = 0;
+				isSpare = false;
+			}else
+			if(isStrike){
+				if(score != 10){
+					extraStrikeScore += score;
 				}
-			}	
-			if(firstBowl >= 0){
-				if(secondBowl >= 0){
-					frameList.Add(firstBowl + secondBowl);
-					firstBowl = score;
-					secondBowl = -1;
-				}else{
-					secondBowl = score;
-					frameList.Add(firstBowl + secondBowl);
-					firstBowl = -1;
-					secondBowl = -1;
-				}
-			}else {
-				if(score == 10){
-					extraScore += 10;
-				}else{
-					firstBowl = score;
+				if(scoreInFrame > 0){
+					if(extraStrikeScore < 20){
+						frameList.Add(extraStrikeScore);
+						extraStrikeScore = 0;
+						isStrike = false;
+					}
+					else{
+						frameList.Add(extraStrikeScore - score);
+						frameList.Add(scoreInFrame + score + 10);
+						frameList.Add(scoreInFrame + score);
+						scoreInFrame = 0;
+						continue;
+					}
 				}
 			}
+
+			if(score == 10){
+				isStrike = true;
+				extraStrikeScore += score;
+			}else 
+			if(scoreInFrame + score == 10){
+				isSpare = true;
+				scoreInFrame += score;
+			}else
+			if(scoreInFrame > 0){
+				frameList.Add(scoreInFrame + score);
+				scoreInFrame = 0;
+			}else{
+				scoreInFrame += score;
+			}
+
 		}
 
 		
