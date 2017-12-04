@@ -23,12 +23,20 @@ public class ScoreMaster {
 		List<int> frameList = new List<int>();
 		int scoreInFrame = 0;
 		int extraStrikeScore = 0;
+		int strikeAccumulator = 0;
+		int lastFrameAccumulator = 0;
 		bool isSpare = false;
 		bool isStrike = false;
+		bool isZero = false;
+		bool isLastTwo = false;
 		
 		foreach (int score in rolls)
 		{
-			
+			if(lastFrameAccumulator > 1)
+				isLastTwo = true;
+			if(frameList.Count() == 9)
+				lastFrameAccumulator++;
+
 			if(isSpare){
 				frameList.Add(scoreInFrame + score);
 				scoreInFrame = 0;
@@ -37,6 +45,14 @@ public class ScoreMaster {
 			if(isStrike){
 				if(score != 10){
 					extraStrikeScore += score;
+				}else{
+					if(strikeAccumulator % 30 == 0){
+						frameList.Add(30);
+						strikeAccumulator += 20;	
+						if(score + strikeAccumulator == 300){
+							frameList.Add(30);
+						}
+					}
 				}
 				if(scoreInFrame > 0){
 					if(extraStrikeScore < 20){
@@ -49,23 +65,35 @@ public class ScoreMaster {
 						frameList.Add(scoreInFrame + score + 10);
 						frameList.Add(scoreInFrame + score);
 						scoreInFrame = 0;
+						extraStrikeScore = 0;
 						continue;
 					}
 				}
+			}else
+			if(isZero && score == 0){
+				frameList.Add(0);
+				isZero = false;
+				continue;
 			}
 
 			if(score == 10){
 				isStrike = true;
+				strikeAccumulator += 10;
 				extraStrikeScore += score;
+			}else
+			if(score == 0){
+				isZero = true;
 			}else 
 			if(scoreInFrame + score == 10){
 				isSpare = true;
 				scoreInFrame += score;
 			}else
 			if(scoreInFrame > 0){
-				frameList.Add(scoreInFrame + score);
+				if(!isLastTwo)
+					frameList.Add(scoreInFrame + score);
 				scoreInFrame = 0;
-			}else{
+			}
+			else{
 				scoreInFrame += score;
 			}
 
