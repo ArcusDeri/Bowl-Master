@@ -20,86 +20,27 @@ public class ScoreMaster {
 
 	//returns list of individual frame scores, not cumulative
 	public static List<int> ScoreFrames(List<int> rolls){
-		List<int> frameList = new List<int>();
-		int scoreInFrame = 0;
-		int extraStrikeScore = 0;
-		int strikeAccumulator = 0;
-		int lastFrameAccumulator = 0;
-		bool isSpare = false;
-		bool isStrike = false;
-		bool isZero = false;
-		bool isLastTwo = false;
+		List<int> frames = new List<int>();
 		
-		foreach (int score in rolls)
-		{
-			if(lastFrameAccumulator > 1)
-				isLastTwo = true;
-			if(frameList.Count() == 9)
-				lastFrameAccumulator++;
-
-			if(isSpare){
-				frameList.Add(scoreInFrame + score);
-				scoreInFrame = 0;
-				isSpare = false;
-			}else
-			if(isStrike){
-				if(score != 10){
-					extraStrikeScore += score;
-				}else{
-					if(strikeAccumulator % 30 == 0){
-						frameList.Add(30);
-						strikeAccumulator += 20;	
-						if(score + strikeAccumulator == 300){
-							frameList.Add(30);
-						}
-					}
-				}
-				if(scoreInFrame > 0){
-					if(extraStrikeScore < 20){
-						frameList.Add(extraStrikeScore);
-						extraStrikeScore = 0;
-						isStrike = false;
-					}
-					else{
-						frameList.Add(extraStrikeScore - score);
-						frameList.Add(scoreInFrame + score + 10);
-						frameList.Add(scoreInFrame + score);
-						scoreInFrame = 0;
-						extraStrikeScore = 0;
-						continue;
-					}
-				}
-			}else
-			if(isZero && score == 0){
-				frameList.Add(0);
-				isZero = false;
-				continue;
+		for(int i = 1; i < rolls.Count; i+=2 ){
+			if(frames.Count == 10)						//prevents 11th frame score
+				break;
+			if(rolls[i - 1] + rolls[i] < 10){			//standard frame
+				frames.Add(rolls[i - 1] + rolls[i]);
 			}
 
-			if(score == 10){
-				isStrike = true;
-				strikeAccumulator += 10;
-				extraStrikeScore += score;
-			}else
-			if(score == 0){
-				isZero = true;
-			}else 
-			if(scoreInFrame + score == 10){
-				isSpare = true;
-				scoreInFrame += score;
-			}else
-			if(scoreInFrame > 0){
-				if(!isLastTwo)
-					frameList.Add(scoreInFrame + score);
-				scoreInFrame = 0;
-			}
-			else{
-				scoreInFrame += score;
-			}
+			if(rolls.Count - i <= 1)					//there is no i+1 index
+				break;
 
+			if(rolls[i - 1] == 10){						//strike
+				i--;									//strike frame has just one bowl
+				frames.Add(10 + rolls[i + 1] + rolls[i + 2]);
+			}else if(rolls[i - 1] + rolls[i] == 10){			//spare bonus
+				frames.Add(10 + rolls[i + 1]);
+			}
 		}
 
-		
-		return frameList;
+
+		return frames;
 	}
 }
