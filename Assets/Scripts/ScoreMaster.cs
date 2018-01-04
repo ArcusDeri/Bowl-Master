@@ -18,10 +18,11 @@ public class ScoreMaster {
 		return cumulativeScores;
 	}
 
-	//returns list of individual frame scores, not cumulative
+	//returns list of individual frame scores
 	public static List<int> ScoreFrames(List<int> rolls){
 		List<int> frames = new List<int>();
 		
+		//i points to second bowl of frame
 		for(int i = 1; i < rolls.Count; i+=2 ){
 			if(frames.Count == 10)						//prevents 11th frame score
 				break;
