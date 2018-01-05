@@ -19,4 +19,8 @@ public class Scores : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public void FillRollCard(List<int> rolls){
+		//Debug.Log(rolls[3]);
+	}
 }
