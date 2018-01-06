@@ -14,13 +14,22 @@ public class Scores : MonoBehaviour {
 		foreach(var textDisplay in FrameTexts)
 			textDisplay.text = "";
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	public void FillRollCard(List<int> rolls){
-		//Debug.Log(rolls[3]);
+	public void FillRolls(List<int> rolls){
+		var scoresString = FormatRolls(rolls);
+		for(int i = 0; i < scoresString.Length; i++){
+			RollTexts[i].text = scoresString[i].ToString();
+		}
+	}
+	
+	public void FillFrames(List<int> frames){
+		for(int i = 0; i < frames.Count; i++){
+			FrameTexts[i].text = frames[i].ToString();
+		}
+	}
+	public static string FormatRolls(List<int> rolls){
+		string result = "";
+
+		return result;
 	}
 }

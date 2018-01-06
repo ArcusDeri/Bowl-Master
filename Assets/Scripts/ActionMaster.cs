@@ -16,7 +16,7 @@ public static class ActionMaster {
 				nextAction = Action.Reset;
 			} else if ( i == 19 ) {
 				if (rolls[18]==10 && rolls[19]==0) {
-					nextAction = Action.Tidy;
+					nextAction = Action.Reset;
 				} else if (rolls[18] + rolls[19] == 10) {
 					nextAction = Action.Reset;
 				} else if (rolls [18] + rolls[19] >= 10) {  // Roll 21 awarded
