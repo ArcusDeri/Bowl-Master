@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 		try{
 			Rolls.Add(pinFall);
 			MyBall.Reset();
-			ActionMasterOld.Action nextAction = ActionMasterOld.NextAction(Rolls);
+			ActionMaster.Action nextAction = ActionMaster.NextAction(Rolls);
 			MyPinSetter.PerformAction(nextAction);
 		}
 		catch{

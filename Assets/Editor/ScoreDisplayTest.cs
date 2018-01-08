@@ -116,4 +116,18 @@ public class ScoreDisplayTest {
 		string rollsString= "-";
 		Assert.AreEqual(rollsString,Scores.FormatRolls(rolls.ToList()));
 	}
+
+	[Test]
+	public void T15_ZeroThen10ShouldBeSpare(){
+		int[] rolls = {0,10};
+		string rollsString= "-/";
+		Assert.AreEqual(rollsString,Scores.FormatRolls(rolls.ToList()));
+	}
+
+	[Test]
+	public void T16_StrikeThen91InLastFrameShouldBeSpare(){
+		int[] rolls = {1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 1,1, 10,9,1};
+		string rollsString= "111111111111111111X9/";
+		Assert.AreEqual(rollsString,Scores.FormatRolls(rolls.ToList()));
+	}
 }

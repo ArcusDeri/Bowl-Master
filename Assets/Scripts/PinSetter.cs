@@ -7,14 +7,12 @@ public class PinSetter : MonoBehaviour {
 	public float DistanceToRaise = 40f;
 	public GameObject PinSet;
 
-	private ActionMasterOld MyActionMaster;
 	private Animator MyAnimator;
 	private PinCounter MyPinCounter;
 
 	// Use this for initialization
 	void Start () {
 		MyPinCounter = GameObject.FindObjectOfType<PinCounter>();
-		MyActionMaster = new ActionMasterOld();
 		MyAnimator = GetComponent<Animator>();
 	}
 	
@@ -41,16 +39,16 @@ public class PinSetter : MonoBehaviour {
 		newPins.transform.position += new Vector3(0,30,0);
 	}
 
-	public void PerformAction(ActionMasterOld.Action action){
+	public void PerformAction(ActionMaster.Action action){
 		switch(action){
-			case ActionMasterOld.Action.Tidy:
+			case ActionMaster.Action.Tidy:
 				MyAnimator.SetTrigger("TidyTrigger");
 				break;
-			case ActionMasterOld.Action.Reset:
+			case ActionMaster.Action.Reset:
 				MyAnimator.SetTrigger("ResetTrigger");
 				MyPinCounter.Reset();
 				break;
-			case ActionMasterOld.Action.EndTurn:
+			case ActionMaster.Action.EndTurn:
 				MyAnimator.SetTrigger("ResetTrigger");
 				MyPinCounter.Reset();
 				break;

@@ -35,8 +35,8 @@ public class Scores : MonoBehaviour {
 			if(rolls[i] == 0){
 				result += "-";
 			}
-			else if(box % 2 == 0 && rolls[i-1] + rolls[i] == 10){//spare
-				result =  result.Trim() + "/";
+			else if((box % 2 == 0 || box == 21) && rolls[i-1] + rolls[i] == 10){//spare
+				result =  result + "/";
 			}
 			else if(rolls[i] == 10){						//strike
 				result += "X";
